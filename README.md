@@ -8,4 +8,3 @@ This project is dependent on [Unreal.js](https://github.com/ncsoft/Unreal.js)
 
 ### License
 - Licensed under the MIT license
-- see [LICENSE](https://github.com/ncsoft/Unreal.js/blob/master/LICENSE) for details
