@@ -1,0 +1,16 @@
+{
+  "name": "React-UMG",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "NCSOFT",
+  "license": "MIT",
+  "dependencies": {
+    "fbjs": "^0.8.3",
+    "react": "<=15.3.2"
+  }
+}
