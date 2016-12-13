@@ -6,8 +6,7 @@ A React renderer for Unreal Motion Graphics (https://docs.unrealengine.com/lates
 
 This project is dependent on [Unreal.js](https://github.com/ncsoft/Unreal.js)
 
-** We recommend using React with [Babel](https://babeljs.io) to let you use JSX in your Javascript code.
-JSX is an extension to the Javascript language that works nicely with React.**
+##### We recommend using React with [Babel](https://babeljs.io) to let you use JSX in your Javascript code. JSX is an extension to the Javascript language that works nicely with React.
 
 
 ### Install
