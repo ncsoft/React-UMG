@@ -18,7 +18,7 @@ This project is dependent on [Unreal.js](https://github.com/ncsoft/Unreal.js)
 
 #### Create Component
 
-```
+```js
 class MyComponent extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -42,7 +42,7 @@ class MyComponent extends React.Component {
 
 ### Draw With React-UMG
 
-```
+```js
 let widget = ReactUMG.wrap(<MyComponent/>);
 widget.AddToViewport();
 return () => {
