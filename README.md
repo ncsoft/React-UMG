@@ -6,6 +6,15 @@ A React renderer for Unreal Motion Graphics (https://docs.unrealengine.com/lates
 
 This project is dependent on [Unreal.js](https://github.com/ncsoft/Unreal.js)
 
+** We recommend using React with [Babel](https://babeljs.io) to let you use JSX in your Javascript code.
+JSX is an extension to the Javascript language that works nicely with React.**
+
+
+### Install
+To install React-UMG with npm, run:
+
+`npm i --save React-UMG`
+
 ### Web-dev like Component Naming
 
 - div(UVerticalBox)
@@ -40,7 +49,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-### Draw With React-UMG
+#### Draw With React-UMG
 
 ```js
 let widget = ReactUMG.wrap(<MyComponent/>);
