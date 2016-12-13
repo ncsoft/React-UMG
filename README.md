@@ -6,6 +6,50 @@ A React renderer for Unreal Motion Graphics (https://docs.unrealengine.com/lates
 
 This project is dependent on [Unreal.js](https://github.com/ncsoft/Unreal.js)
 
+### Web-dev like Component Naming
+
+- div(UVerticalBox)
+- span(UHorizontalBox)
+- text(UTextBlock)
+- img(UImage)
+- input(EditableText)
+
+### Example
+
+#### Create Component
+
+```
+class MyComponent extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {text:"MyComponent"};
+    }
+
+    OnTextChanged(value) {
+        this.setState({text: value});
+    }
+
+    render() {
+        return (
+            <div>
+                <uEditableTextBox Text={this.state.text} OnTextChanged={value=> this.OnTextChanged(value)}/>
+                <text Text={this.state.text}/>
+            </div>
+        )
+    }
+}
+```
+
+### Draw With React-UMG
+
+```
+let widget = ReactUMG.wrap(<MyComponent/>);
+widget.AddToViewport();
+return () => {
+    widget.RemoveFromViewport();
+}
+```
+
 ### License
 - Licensed under the MIT license
 - see [LICENSE](https://github.com/ncsoft/React-UMG/blob/master/LICENSE) for details
