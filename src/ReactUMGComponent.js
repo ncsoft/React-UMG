@@ -2,10 +2,9 @@
 
 const ReactMultiChild = require('react/lib/ReactMultiChild');
 const ReactCurrentOwner = require('react/lib/ReactCurrentOwner');
-
 const invariant = require('fbjs/lib/invariant');
 const warning = require('fbjs/lib/warning');
-
+const shallowEqual = require('fbjs/lib/shallowEqual');
 const UmgRoots = require('./UMGRoots');
 const TypeThunks = require('./components/ReactUMGClassMap');
 
@@ -66,12 +65,6 @@ ReactUMGComponent.Mixin = {
   updateProperty(widget, value, key) {
     this._typeThunk.applyProperty(widget,value, key);
   },
-  updateProperties(widget) {
-    let props = this._currentElement.props
-    for (var key in props) {
-        this.updateProperty(widget, props[key], key);
-    }
-  },
   sync() {
     JavascriptWidget.CallSynchronizeProperties(this.ueobj)
     JavascriptWidget.CallSynchronizeProperties(this.ueobj.Slot)
@@ -82,22 +75,25 @@ ReactUMGComponent.Mixin = {
     hostContainerInfo, // nativeContainerInfo
     context // secret context, shhhh
   ) {
-    let parent = rootID;
+    var parent = rootID;
 
     rootID = typeof rootID === 'object' ? rootID._rootNodeID : rootID;
     this._rootNodeID = rootID;
 
-    let umgRoot = parent.ueobj ? parent.ueobj : UmgRoots[rootID]; 
+    var umgRoot = parent.ueobj ? parent.ueobj : UmgRoots[rootID]; 
     if (umgRoot instanceof JavascriptWidget) {
       umgRoot = umgRoot.WidgetTree.RootWidget
     }
-    let outer = Root.GetEngine ? JavascriptLibrary.CreatePackage(null,'/Script/Javascript') : GWorld
+    var outer = Root.GetEngine ? JavascriptLibrary.CreatePackage(null,'/Script/Javascript') : GWorld
 
     this.ueobj = this._typeThunk.createUmgElement(
       this._currentElement,
       cls => {
-        let widget = new cls(outer);
-        this.updateProperties(widget);
+        var widget = new cls(outer);
+        var props = this._currentElement.props
+        for (var key in props) {
+          this.updateProperty(widget, props[key], key);
+        }
         if (widget instanceof JavascriptWidget) {
           widget.AddChild(new SizeBox(outer))
         }
@@ -127,29 +123,37 @@ ReactUMGComponent.Mixin = {
    * Updates the component's currently mounted representation.
    */
   receiveComponent(
-    nextElement,
-    transaction,
-    context
-  ) {
+    nextElement, transaction, context) {
     const prevElement = this._currentElement;
     this._currentElement = nextElement;
-    this._reconcileListenersUponUpdate(prevElement.props, nextElement.props);
-    this.updateChildren(nextElement.props.children, transaction, context);
+    this.updateComponent(transaction, prevElement, nextElement, context);
   },
-  _reconcileListenersUponUpdate(
-    prevProps, nextProps
-    ) {
-      for (var key in nextProps) {
-        if (nextProps[key] !== prevProps[key]) {
-          this.updateProperty(this.ueobj, nextProps[key], key);
-        }
+  updateComponent(
+    transaction, prevElement, nextElement, context) {
+    var lastProps = prevElement.props;
+    var nextProps = nextElement.props;
+    if (!shallowEqual(lastProps, nextProps)) {
+      this.updateProperties(lastProps, nextProps, transaction) 
+    }
+    this.updateChildren(nextProps.children, transaction, context);
+  },
+  updateProperties(
+    lastProps, nextProps, transaction) {
+    for (var propKey in nextProps) {
+      var nextProp = nextProps[propKey];
+      var lastProp = lastProps != null ? lastProps[propKey] : undefined;
+      if (!nextProps.hasOwnProperty(propKey) ||
+        nextProp === lastProp ||
+        nextProp == null && lastProp == null) {
+        continue;
       }
-  },
+      process.nextTick(function() {
+        this.updateProperty(this.ueobj, nextProp, propKey);
+      })
+   }
+  },  
   initializeChildren(
-    children,
-    transaction, // for creating/updating
-    context // secret context, shhhh
-  ) {
+    children, transaction, context) {
     this.mountChildren(children, transaction, context);
   },
 };

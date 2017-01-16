@@ -1,9 +1,7 @@
 function set_attrs(instance, attrs) {
-  var bindings = []
   for (var k in attrs) {
-    bindings.concat(set_attr(instance, k, attrs[k]));
+    set_attr(instance, k, attrs[k]);
   }
-  return bindings;
 }
 
 function set_attr(instance, k, attr) {
