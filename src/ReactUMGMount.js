@@ -142,7 +142,8 @@ const ReactUMGMount = {
     ReactUMGMount._instancesByReactRootID[rootId] = nextComponent;
     NodeMap[nextComponent] = umgWidget;
  
-    if (umgWidget instanceof JavascriptWidget) {
+    if (umgWidget instanceof JavascriptWidget 
+      && umgWidget.OnDestroy) {
       umgWidget.OnDestroy.Add(() => {
         if (nextComponent.getPublicInstance()) {
           ReactUMGMount.unmountComponent(nextComponent.getPublicInstance())                            
