@@ -13,11 +13,21 @@
   "bugs": {
     "url": "https://github.com/ncsoft/React-UMG/issues"
   },
-  "keywords": ["unreal.js", "react-umg", "react", "umg"],
-  "author": { "name": "NCSOFT", "email": "crocuis@ncsoft.com", "url": "http://ncsoft.com"},
+  "keywords": [
+    "unreal.js",
+    "react-umg",
+    "react",
+    "umg"
+  ],
+  "author": {
+    "name": "NCSOFT",
+    "email": "crocuis@ncsoft.com",
+    "url": "http://ncsoft.com"
+  },
   "license": "MIT",
   "dependencies": {
     "fbjs": "^0.8.3",
+    "lodash": "^4.17.4",
     "react": "<=15.3.2"
   }
 }
