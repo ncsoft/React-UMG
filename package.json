@@ -1,6 +1,6 @@
 {
   "name": "react-umg",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A React renderer for Unreal Motion Graphics With Unreal.js",
   "main": "index.js",
   "scripts": {
