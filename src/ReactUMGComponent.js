@@ -149,9 +149,7 @@ ReactUMGComponent.Mixin = {
         nextProp == null && lastProp == null) {
         continue;
       }
-      process.nextTick(() => {
-        this.updateProperty(this.ueobj, nextProp, propKey);
-      })
+      this.updateProperty(this.ueobj, nextProp, propKey);
    }
   },  
   initializeChildren(
