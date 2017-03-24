@@ -1,6 +1,6 @@
 'use strict';
 
-const ReactMultiChild = require('react/lib/ReactMultiChild');
+const ReactMultiChild = require('react-dom/lib/ReactMultiChild');
 
 const ReactUMGEmptyComponent = function(element) {
 

@@ -1,9 +1,9 @@
 'use strict';
 
-var CallbackQueue = require('react/lib/CallbackQueue');
+var CallbackQueue = require('react-dom/lib/CallbackQueue');
 var PooledClass = require('react/lib/PooledClass');
-var Transaction = require('react/lib/Transaction');
-var ReactUpdateQueue = require('react/lib/ReactUpdateQueue');
+var Transaction = require('react-dom/lib/Transaction');
+var ReactUpdateQueue = require('react-dom/lib/ReactUpdateQueue');
 
 /**
  * Provides a `CallbackQueue` queue for collecting `onDOMReady` callbacks during
@@ -71,7 +71,7 @@ const Mixin = {
 
 Object.assign(
   ReactUMGReconcileTransaction.prototype,
-  Transaction.Mixin,
+  Transaction,
   ReactUMGReconcileTransaction,
   Mixin
 );

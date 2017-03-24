@@ -1,6 +1,6 @@
 'use strict';
 
-const ReactMultiChild = require('react/lib/ReactMultiChild');
+const ReactMultiChild = require('react-dom/lib/ReactMultiChild');
 const ReactCurrentOwner = require('react/lib/ReactCurrentOwner');
 const invariant = require('fbjs/lib/invariant');
 const warning = require('fbjs/lib/warning');

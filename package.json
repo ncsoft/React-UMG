@@ -1,6 +1,6 @@
 {
   "name": "react-umg",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A React renderer for Unreal Motion Graphics With Unreal.js",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,7 @@
   "dependencies": {
     "fbjs": "^0.8.3",
     "lodash": "^4.17.4",
-    "react": "<=15.3.2"
+    "react": "<=15.4.2",
+    "react-dom": "<=15.4.2"
   }
 }

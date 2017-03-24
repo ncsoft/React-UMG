@@ -4,9 +4,9 @@
  * React UMG Default Injection
  */
 require('./devtools/InitializeJavaScriptAppEngine');
-const ReactInjection = require('react/lib/ReactInjection');
-const ReactDefaultBatchingStrategy = require('react/lib/ReactDefaultBatchingStrategy');
-const ReactComponentEnvironment = require('react/lib/ReactComponentEnvironment');
+const ReactInjection = require('react-dom/lib/ReactInjection');
+const ReactDefaultBatchingStrategy = require('react-dom/lib/ReactDefaultBatchingStrategy');
+const ReactComponentEnvironment = require('react-dom/lib/ReactComponentEnvironment');
 const ReactUMGReconcileTransaction = require('./ReactUMGReconcileTransaction');
 const ReactUMGComponent = require('./ReactUMGComponent');
 const ReactUMGEmptyComponent = require('./ReactUMGEmptyComponent');

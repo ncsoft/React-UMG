@@ -1,17 +1,17 @@
 'use strict';
 
-const ReactInstanceHandles = require('react/lib/ReactInstanceHandles');
-const ReactInstanceMap = require('react/lib/ReactInstanceMap');
 const ReactElement = require('react/lib/ReactElement');
-const ReactUpdates = require('react/lib/ReactUpdates');
-const ReactUpdateQueue = require('react/lib/ReactUpdateQueue');
-const ReactReconciler = require('react/lib/ReactReconciler');
-const shouldUpdateReactComponent = require('react/lib/shouldUpdateReactComponent');
-const instantiateReactComponent = require('react/lib/instantiateReactComponent');
+const ReactInstanceMap = require('react-dom/lib/ReactInstanceMap');
+const ReactUpdates = require('react-dom/lib/ReactUpdates');
+const ReactUpdateQueue = require('react-dom/lib/ReactUpdateQueue');
+const ReactReconciler = require('react-dom/lib/ReactReconciler');
+const shouldUpdateReactComponent = require('react-dom/lib/shouldUpdateReactComponent');
+const instantiateReactComponent = require('react-dom/lib/instantiateReactComponent');
 
 const invariant = require('fbjs/lib/invariant');
 const warning = require('fbjs/lib/warning');
 
+const ReactInstanceHandles = require('./ReactInstanceHandles');
 const ReactUMGDefaultInjection = require('./ReactUMGDefaultInjection');
 
 ReactUMGDefaultInjection();
