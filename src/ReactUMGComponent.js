@@ -99,8 +99,9 @@ ReactUMGComponent.Mixin = {
         }
         if (umgRoot['AddChild'] != null) {
           var slot = umgRoot.AddChild(widget);
-          slot.Content.Slot = slot;
-          return slot.Content
+          if (slot)
+            slot.Content.Slot = slot;
+          return widget
         }
         else {
           console.error('cannot add child', umgRoot);
