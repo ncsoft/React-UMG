@@ -109,8 +109,10 @@ const ReactUMGMount = {
     }
     const nextComponent = instantiateReactComponent(nextElement);
 
-    if (!umgWidget.component) 
+    if (!umgWidget.component) {
       umgWidget.component = nextComponent;
+      NodeMap[nextComponent] = umgWidget;
+    }
   
     ReactUpdates.batchedUpdates(() => {
       // Two points to React for using object pooling internally and being good
@@ -140,7 +142,6 @@ const ReactUMGMount = {
 
     // needed for react-devtools
     ReactUMGMount._instancesByReactRootID[rootId] = nextComponent;
-    NodeMap[nextComponent] = umgWidget;
  
     if (umgWidget.OnDestroy) {
       umgWidget.OnDestroy.Add(() => {
@@ -206,24 +207,24 @@ const ReactUMGMount = {
     return component.getPublicInstance();
   },
   unmountComponent(instance) {
-    const internalInstance = ReactInstanceMap.get(instance);
+    const internalInstance = ReactInstanceMap.get(instance) || instance;
     if (internalInstance) {
-      let widget = ReactUMGMount.findNode(instance)
+      let widget = ReactUMGMount.findNode(internalInstance)
       if (widget) {
         const rootId = ReactInstanceHandles.createReactRootID(widget.reactUmgId);
         delete UmgRoots[rootId];
         delete ReactUMGMount._instancesByReactRootID[rootId];
+        delete NodeMap[internalInstance];
       } 
-      delete NodeMap[instance];
       internalInstance.unmountComponent();
     }
   },
   findNode(instance) {
-    return NodeMap[instance]
+    return NodeMap[instance];
   }, 
   wrap(nextElement, outer = Root.GetEngine ? JavascriptLibrary.CreatePackage(null,'/Script/Javascript') : GWorld) {
     let widget = Root.GetEngine ? new JavascriptWidget(outer) : GWorld.CreateWidget(JavascriptWidget);
-    let instance = ReactUMGMount.render(nextElement, widget);
+    var instance = ReactUMGMount.render(nextElement, widget);
     return ReactUMGMount.findNode(instance) 
   }
 };
