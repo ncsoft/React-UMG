@@ -111,7 +111,6 @@ const ReactUMGMount = {
 
     if (!umgWidget.component) {
       umgWidget.component = nextComponent;
-      NodeMap[nextComponent] = umgWidget;
     }
   
     ReactUpdates.batchedUpdates(() => {
@@ -142,6 +141,7 @@ const ReactUMGMount = {
 
     // needed for react-devtools
     ReactUMGMount._instancesByReactRootID[rootId] = nextComponent;
+    NodeMap[nextComponent] = umgWidget;
  
     if (umgWidget.OnDestroy) {
       umgWidget.OnDestroy.Add(() => {
@@ -207,9 +207,9 @@ const ReactUMGMount = {
     return component.getPublicInstance();
   },
   unmountComponent(instance) {
-    const internalInstance = ReactInstanceMap.get(instance) || instance;
+    const internalInstance = ReactInstanceMap.get(instance);
     if (internalInstance) {
-      let widget = ReactUMGMount.findNode(internalInstance)
+      let widget = ReactUMGMount.findNode(internalInstance);
       if (widget) {
         const rootId = ReactInstanceHandles.createReactRootID(widget.reactUmgId);
         delete UmgRoots[rootId];
@@ -218,13 +218,16 @@ const ReactUMGMount = {
       } 
       internalInstance.unmountComponent();
     }
+    else {
+      instance.unmountComponent();
+    }
   },
   findNode(instance) {
     return NodeMap[instance];
   }, 
   wrap(nextElement, outer = Root.GetEngine ? JavascriptLibrary.CreatePackage(null,'/Script/Javascript') : GWorld) {
     let widget = Root.GetEngine ? new JavascriptWidget(outer) : GWorld.CreateWidget(JavascriptWidget);
-    var instance = ReactUMGMount.render(nextElement, widget);
+    let instance = ReactUMGMount.render(nextElement, widget);
     return ReactUMGMount.findNode(instance) 
   }
 };
