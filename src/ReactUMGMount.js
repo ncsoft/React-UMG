@@ -146,7 +146,6 @@ const ReactUMGMount = {
     umgWidget.JavascriptContext = Context;
     umgWidget.proxy = {
       OnDestroy: (bReleaseChildren) => {
-        console.log('_on destroy', umgWidget);
         if (nextComponent.getPublicInstance()) {
           ReactUMGMount.unmountComponent(nextComponent.getPublicInstance())                            
         }
