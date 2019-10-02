@@ -141,7 +141,7 @@ const ReactUMGMount = {
 
     // needed for react-devtools
     ReactUMGMount._instancesByReactRootID[rootId] = nextComponent;
-    NodeMap[nextComponent] = umgWidget;
+    NodeMap.set(nextComponent, umgWidget);
  
     umgWidget.JavascriptContext = Context;
     umgWidget.proxy = {
@@ -215,7 +215,7 @@ const ReactUMGMount = {
         const rootId = ReactInstanceHandles.createReactRootID(widget.reactUmgId);
         delete UmgRoots[rootId];
         delete ReactUMGMount._instancesByReactRootID[rootId];
-        delete NodeMap[internalInstance];
+        NodeMap.delete(internalInstance);
       } 
       internalInstance.unmountComponent();
     }
@@ -224,7 +224,8 @@ const ReactUMGMount = {
     }
   },
   findNode(instance) {
-    return NodeMap[instance];
+    const internalInstance = ReactInstanceMap.get(instance);
+    return internalInstance && NodeMap.get(internalInstance);
   }, 
   wrap(nextElement, outer = Root.GetEngine ? JavascriptLibrary.CreatePackage(null,'/Script/Javascript') : GWorld) {
     let widget = Root.GetEngine ? new JavascriptWidget(outer) : GWorld.CreateWidget(JavascriptWidget);
