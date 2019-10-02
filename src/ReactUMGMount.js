@@ -208,29 +208,25 @@ const ReactUMGMount = {
     return component.getPublicInstance();
   },
   unmountComponent(instance) {
-    const internalInstance = ReactInstanceMap.get(instance);
-    if (internalInstance) {
-      let widget = ReactUMGMount.findNode(internalInstance);
-      if (widget) {
-        const rootId = ReactInstanceHandles.createReactRootID(widget.reactUmgId);
-        delete UmgRoots[rootId];
-        delete ReactUMGMount._instancesByReactRootID[rootId];
-        NodeMap.delete(internalInstance);
-      } 
-      internalInstance.unmountComponent();
+    let widget = ReactUMGMount.findNode(instance);
+    if (widget) {
+      const rootId = ReactInstanceHandles.createReactRootID(widget.reactUmgId);
+      delete UmgRoots[rootId];
+      delete ReactUMGMount._instancesByReactRootID[rootId];
+      NodeMap.delete(internalInstance);
     }
-    else {
-      instance.unmountComponent();
-    }
+
+    const internalInstance = ReactInstanceMap.get(instance) || instance;
+    internalInstance.unmountComponent();
   },
   findNode(instance) {
-    const internalInstance = ReactInstanceMap.get(instance);
+    const internalInstance = ReactInstanceMap.get(instance) || instance;
     return internalInstance && NodeMap.get(internalInstance);
-  }, 
+  },
   wrap(nextElement, outer = Root.GetEngine ? JavascriptLibrary.CreatePackage(null,'/Script/Javascript') : GWorld) {
     let widget = Root.GetEngine ? new JavascriptWidget(outer) : GWorld.CreateWidget(JavascriptWidget);
     let instance = ReactUMGMount.render(nextElement, widget);
-    return ReactUMGMount.findNode(instance) 
+    return ReactUMGMount.findNode(instance)
   }
 };
 
