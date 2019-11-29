@@ -215,6 +215,7 @@ const ReactUMGMount = {
       delete UmgRoots[rootId];
       delete ReactUMGMount._instancesByReactRootID[rootId];
       NodeMap.delete(internalInstance);
+      widget.RemoveChild();
     }
 
     internalInstance.unmountComponent();
