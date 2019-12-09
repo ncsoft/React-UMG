@@ -55,6 +55,11 @@ ReactUMGComponent.Mixin = {
       if (this._currentElement.props.$unlink) {
         this._currentElement.props.$unlink(this.ueobj);
       }
+      for (var key in this._currentElement.props) {
+        if (typeof this._currentElement.props[key] === 'function') {
+          this.updateProperty(this.ueobj, null, key);
+        }
+      }
       this.ueobj.RemoveFromParent(); 
     }      
     
