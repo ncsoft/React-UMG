@@ -63,5 +63,5 @@ return () => {
 
 
 ### License
-- Licensed under the MIT license
+- Licensed under the BSD 3-Clause "New" or "Revised" License 
 - see [LICENSE](https://github.com/ncsoft/React-UMG/blob/master/LICENSE) for details
